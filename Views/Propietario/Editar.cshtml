@@ -1,0 +1,56 @@
+@model Propietario
+@{
+    ViewData["Title"] = "Editar Propietario";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    
+</div>
+<div class="border p-2 m-4">
+    <form class="form" action="" method="POST">
+       <!--div asp-validation-summary="ModelOnly" class="text-danger"></div-->
+        <input type="hidden" name="IdPropietario" value="@Model.IdPropietario"/>
+       <div class="container d-flex flex-row">
+        <div class="row d-flex flex-column col-6 p-2">
+            <div class="col-12">
+
+
+            <label class="form-label" for="fNombre">Nombre</label>
+            <input class="form-control" type="text" id="fnombre" name="Nombre" value=@Model.Nombre><br>
+
+        
+        <label class="form-label" for="fApellido">Apellido</label>
+        <input class="form-control" type="text" id="fApellido" name="Apellido" value="@Model.Apellido"><br>
+        
+        <label class="form-label" for="fDni">DNI</label>
+        <input class="form-control" type="text" id="fDni" name="Dni"value=@Model.Dni><br>
+        
+        <label class="form-label" for="fEmail">Email</label>
+        <input class="form-control" type="text" id="fEmail" name="Mail" value= "@Model.Mail"><br>
+            </div>
+        </div>
+       
+        <div class="p-2 row d-flex flex-column align-items-startrow align-items-end col-6">
+            <div class="col-12">
+
+
+        
+        <label class="form-label" for="fTelefono">Telefono</label>
+        <input class="form-control" type="text" id="fTelefono" name="Telefono" value="@Model.Ciudad"><br>
+        
+        <label class="form-label" for="fDireccion">Direccion</label>
+        <input class="form-control" type="text" id="fDireccion" name="Direccion"  value="@Model.Direccion"><br>
+        
+        <label class="form-label" for="fCiudad">Ciudad</label>
+        <input class="form-control" type="text" id="fCiudad" name="Ciudad" value="@Model.Ciudad"><br>
+            </div>
+        </div>
+    </div>
+     <div class="d-flex justify-content-around">
+        <a class="btn btn-primary col-4" href="../Index"> Cancelar</a>
+       <button class="btn btn-danger col-4"> Editar</button>
+     </div>
+</form>
+    
+</div>

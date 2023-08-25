@@ -1,0 +1,38 @@
+@model List<Propietario>
+@{
+    ViewData["Title"] = "Propietarios";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Lista de Propietarios(@Model.Count)</h1>
+    <table class="table mt-5">
+        <tr class="encabezado">
+            <th>Codigo</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Dni</th>
+            <th>Telefono</th>
+            <th>Acciones</th>
+        </tr>
+            @foreach(var p in Model){
+            <tr>
+                <td>@p.IdPropietario</td>
+                <td> @p.Nombre</td>
+                <td> @p.Apellido</td>
+                <td> @p.Dni</td>
+                <td> @p.Telefono</td>
+                <td>
+                   <a asp-action="Editar" asp-route-id="@p.IdPropietario" title="Editar"><span class="fa-solid fa-user-pen" style="color: #558b35;"></span></a>
+                   <a asp-action="Eliminar" asp-route-id="@p.IdPropietario" title="Eliminar"><span class="fa-solid fa-trash-arrow-up" style="color: #ea603e;"></span></a>
+                   <i class="fa-solid fa-circle-info" style="color: #4ea9bc;"></i>
+             
+                    <td>
+                
+
+            </tr>
+            }
+
+    </table>
+    
+    
+</div>

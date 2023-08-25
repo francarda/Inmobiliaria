@@ -1,0 +1,53 @@
+@model Propietario
+@{
+    ViewData["Title"] = "Alta Propietario";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Alta Propietario</h1>
+    
+</div>
+<div class="border p-2 m-4">
+    <form class="form" action="" method="POST">
+       <div class="container d-flex flex-row">
+        <div class="row d-flex flex-column col-6 p-2">
+            <div class="col-12">
+
+
+            <label class="form-label" for="fNombre">Nombre</label>
+            <input class="form-control" type="text" id="fnombre" name="Nombre"><br>
+
+        
+        <label class="form-label" for="fApellido">Apellido</label>
+        <input class="form-control" type="text" id="fApellido" name="Apellido"><br>
+        
+        <label class="form-label" for="fDni">DNI</label>
+        <input class="form-control" type="text" id="fDni" name="Dni"><br>
+        
+        <label class="form-label" for="fEmail">Email</label>
+        <input class="form-control" type="text" id="fEmail" name="Mail"><br>
+            </div>
+        </div>
+       
+        <div class="p-2 row d-flex flex-column align-items-startrow align-items-end col-6">
+            <div class="col-12">
+
+
+        
+        <label class="form-label" for="fTelefono">Telefono</label>
+        <input class="form-control" type="text" id="fTelefono" name="Telefono"><br>
+        
+        <label class="form-label" for="fDireccion">Direccion</label>
+        <input class="form-control" type="text" id="fDireccion" name="Direccion"><br>
+        
+        <label class="form-label" for="fCiudad">Ciudad</label>
+        <input class="form-control" type="text" id="fCiudad" name="Ciudad"><br>
+            </div>
+        </div>
+    </div>
+     <div class="d-flex justify-content-center">
+       <button class="btn btn-primary col-9"> Guardar</button>
+     </div>
+</form>
+    
+</div>
