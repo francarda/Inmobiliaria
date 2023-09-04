@@ -26,5 +26,9 @@ public string Telefono{get;set;}="";
 public string Mail{get;set;}="";
 public string Direccion{get;set;}="";
 public string Ciudad{get;set;}="";
+public bool Estado{get;set;}=true;
 
+public string toString(){
+    return Nombre+" "+Apellido;
+}
 }

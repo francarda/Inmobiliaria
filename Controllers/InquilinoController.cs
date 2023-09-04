@@ -22,7 +22,9 @@ namespace Inmobiliaria.Controllers
         // GET: Inquilino/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            RepositorioInquilino repositorio = new RepositorioInquilino();
+            Inquilino inquilino = repositorio.BuscarPorId(id);
+            return View(inquilino);
         }
 
         // GET: Inquilino/Create
@@ -85,7 +87,7 @@ namespace Inmobiliaria.Controllers
         {
             RepositorioInquilino repo= new RepositorioInquilino();
             Inquilino inqui= repo.BuscarPorId(id);
-            return View("Eliminar",inqui);
+            return View("Delete",inqui);
         }
 
         // POST: Inquilino/Delete/5

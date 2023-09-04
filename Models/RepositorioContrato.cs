@@ -1,5 +1,5 @@
 using MySql.Data.MySqlClient;
-
+using System.Data.SqlClient;
 namespace Inmobiliaria.Models;
 
 public class RepositorioContrato{
@@ -16,7 +16,11 @@ public class RepositorioContrato{
         var res= new List<Contrato>();
         using(MySqlConnection conn = new MySqlConnection(connectionString)){
             //conn.Open();
-            var sql= "SELECT * FROM Contratos";
+
+            /*string sql = @"SELECT Id, Direccion, Ambientes, Superficie, Latitud, Longitud, PropietarioId,
+					p.Nombre, p.Apellido
+					FROM Inmuebles i INNER JOIN Propietarios p ON i.PropietarioId = p.IdPropietario";*/
+            var sql= "SELECT c.idContrato, c.idInmueble, c.idInquilino, desde, hasta, monto, inqui.dni, nombre, apellido,inmu.direccion,uso,tipo,cantAmbientes,precio,latitud,longitud,visible FROM Contratos c inner join Inmuebles inmu on c.idInmueble=inmu.idInmueble inner join Inquilinos inqui on c.idInquilino=inqui.idInquilino WHERE activo=1";
             using(MySqlCommand cmd= new MySqlCommand(sql,conn))
             {
                 conn.Open();
@@ -24,6 +28,7 @@ public class RepositorioContrato{
                 {
                     while(reader.Read())
                     {
+                        
                         res.Add(new Contrato
                         {
                             IdContrato = reader.GetInt32("idContrato"), 
@@ -32,12 +37,32 @@ public class RepositorioContrato{
                             Desde = DateOnly.FromDateTime(reader.GetDateTime("desde")),
                             Hasta = DateOnly.FromDateTime(reader.GetDateTime("hasta")),
                             Monto= reader.GetDecimal("monto"),
-                            inquilino = repoInquilino.BuscarPorId(reader.GetInt32("idInquilino")),
-                            inmueble = repoInmueble.BuscarPorId(reader.GetInt32("idInmueble"))
+                            inquilino = new Inquilino()
+                              {
+                                IdInquilino = reader.GetInt32("idInquilino"),
+                                Dni = reader.GetString("dni"), 
+                                Nombre = reader.GetString("nombre"), 
+                                Apellido = reader.GetString("apellido")
+
+                              },
+                              inmueble = new Inmueble()
+                             {
+                                IdInmueble = reader.GetInt32("idInmueble"),
+                                Direccion = reader.GetString("direccion"),
+                                Uso = reader.GetString("uso"),
+                                Tipo = reader.GetString("tipo"),
+                                CantAmbientes = reader.GetInt32("cantAmbientes"),
+                                Precio = (float)reader.GetDecimal("precio"),
+                                Latitud = reader.GetString("latitud"),
+                                Longitud = reader.GetString("longitud"),
+                                Visible = reader.GetBoolean("visible"),
+                            }
+
                             
                         });
                     }
                 }
+                conn.Close();
             }
 
         }
@@ -48,17 +73,18 @@ public class RepositorioContrato{
       var res=-1;
       using(MySqlConnection conn= new MySqlConnection(connectionString)){
           
-          var sql= @"INSERT INTO Contratos(idInmueble, idInquilino, desde, hasta, monto)
-           VALUES(@idContrato, @idInmueble, @idInquilino, @desde, @hasta, @monto);
+          var sql= @"INSERT INTO Contratos(idInmueble, idInquilino, desde, hasta, monto, activo)
+           VALUES(@idInmueble, @idInquilino, @desde, @hasta, @monto,@activo);
            SELECT LAST_INSERT_ID()";
           using (MySqlCommand cmd= new MySqlCommand(sql,conn))
           {
             cmd.Parameters.AddWithValue("@idInmueble",c.IdInmueble);
             cmd.Parameters.AddWithValue("@idInquilino",c.IdInquilino);
-            cmd.Parameters.AddWithValue("@desde",c.Desde); 
-            cmd.Parameters.AddWithValue("@hasta",c.Hasta);
-            cmd.Parameters.AddWithValue("@monto",c.Monto);
             
+            cmd.Parameters.AddWithValue("@desde",c.Desde.ToString("yyyy-MM-dd")); 
+            cmd.Parameters.AddWithValue("@hasta",c.Hasta.ToString("yyyy-MM-dd"));
+            cmd.Parameters.AddWithValue("@monto",c.Monto);
+            cmd.Parameters.AddWithValue("@activo",c.Activo);
             conn.Open();
             res= Convert.ToInt32(cmd.ExecuteNonQuery());
             c.IdContrato= res;
@@ -71,13 +97,13 @@ public class RepositorioContrato{
       var res=-1;
       using(MySqlConnection conn= new MySqlConnection(connectionString)){
           
-          var sql= @"DELETE FROM Contratos WHERE idContrato=@id";
+          var sql= @"UPDATE Contratos SET activo=0 WHERE idContrato=@id";
           using (MySqlCommand cmd= new MySqlCommand(sql,conn))
           {
             cmd.Parameters.AddWithValue("@id",id);
             conn.Open();
             res= cmd.ExecuteNonQuery();
-             
+             conn.Close();
           }
       }
       return res;
@@ -85,15 +111,15 @@ public class RepositorioContrato{
     public int Modificar(Contrato p){
       var res=-1;
       using(MySqlConnection conn= new MySqlConnection(connectionString)){
-          var sql= @"UPDATE Contratos SET idInmueble=@iInmueble, idInquilino=@idInquilino, desde=@desde, hasta=@hasta, monto= @monto
+          var sql= @"UPDATE Contratos SET idInmueble=@idInmueble, idInquilino=@idInquilino, desde=@desde, hasta=@hasta, monto= @monto
           WHERE idContrato=@id";
           using (MySqlCommand cmd= new MySqlCommand(sql,conn))
           {
             cmd.Parameters.AddWithValue("@id",p.IdContrato);
             cmd.Parameters.AddWithValue("@idInmueble",p.IdInmueble);
             cmd.Parameters.AddWithValue("@idInquilino",p.IdInquilino);
-            cmd.Parameters.AddWithValue("@desde",p.Desde); 
-            cmd.Parameters.AddWithValue("@hasta",p.Hasta);
+            cmd.Parameters.AddWithValue("@desde",p.Desde.ToString("yyyy-MM-dd")); 
+            cmd.Parameters.AddWithValue("@hasta",p.Hasta.ToString("yyyy-MM-dd"));
             cmd.Parameters.AddWithValue("@monto",p.Monto);
             conn.Open();
             res= cmd.ExecuteNonQuery();

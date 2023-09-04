@@ -14,7 +14,7 @@ public class RepositorioInmueble{
         var res= new List<Inmueble>();
         using(MySqlConnection conn = new MySqlConnection(connectionString)){
             //conn.Open();
-            var sql= "SELECT idInmueble, i.direccion, uso, tipo, cantAmbientes,precio, latitud, longitud,visible,i.idPropietario, p.Nombre, p.Apellido FROM inmuebles i INNER JOIN Propietarios p ON  i.idPropietario=p.IdPropietario";
+            var sql= "SELECT idInmueble, i.direccion, uso, tipo, cantAmbientes,precio, latitud, longitud,visible,i.idPropietario, p.Nombre, p.Apellido FROM inmuebles i INNER JOIN Propietarios p ON  i.idPropietario=p.IdPropietario WHERE i.estado=1";
             using(MySqlCommand cmd= new MySqlCommand(sql,conn))
             {
                 conn.Open();
@@ -55,8 +55,8 @@ public class RepositorioInmueble{
       Console.WriteLine(i.Direccion);
             using(MySqlConnection conn= new MySqlConnection(connectionString)){
           
-          var sql= @"INSERT INTO Inmuebles(direccion, uso, tipo, cantAmbientes, latitud, longitud, precio, visible, idPropietario)
-           VALUES(@direccion, @uso, @tipo, @cantAmbientes,@precio, @latitud, @longitud, @visible, @idPropietario);
+          var sql= @"INSERT INTO Inmuebles(direccion, uso, tipo, cantAmbientes, latitud, longitud, precio, visible, idPropietario,estado)
+           VALUES(@direccion, @uso, @tipo, @cantAmbientes,@precio, @latitud, @longitud, @visible, @idPropietario, @estado);
            SELECT LAST_INSERT_ID();";
   
           using (MySqlCommand cmd= new MySqlCommand(sql,conn))
@@ -70,6 +70,7 @@ public class RepositorioInmueble{
             cmd.Parameters.AddWithValue("@visible",i.Visible);
             cmd.Parameters.AddWithValue("@idPropietario",i.IdPropietario);
             cmd.Parameters.AddWithValue("@precio",i.Precio);
+            cmd.Parameters.AddWithValue("@estado",i.Estado);
             conn.Open();
             res= Convert.ToInt32(cmd.ExecuteNonQuery());
             i.IdInmueble= res;
@@ -83,7 +84,7 @@ public class RepositorioInmueble{
       var res=-1;
       using(MySqlConnection conn= new MySqlConnection(connectionString)){
           
-          var sql= @"DELETE FROM inmuebles WHERE idInmueble=@id";
+          var sql= @"UPDATE inmuebles SET estado=0 WHERE idInmueble=@id";;
           using (MySqlCommand cmd= new MySqlCommand(sql,conn))
           {
             cmd.Parameters.AddWithValue("@id",id);

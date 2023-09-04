@@ -45,6 +45,7 @@ public class PropietarioController : Controller
         Propietario propietario = repositorio.BuscarPorId(id);
         return View();
     }*/
+
     public IActionResult Editar(int id)
 		{
 			try
@@ -79,6 +80,13 @@ public class PropietarioController : Controller
             throw;
         }
         return RedirectToAction(nameof(Index));
+    }
+
+    public IActionResult Detalles(int id){
+        RepositorioPropietario repo= new RepositorioPropietario();
+        Propietario propietario= repo.BuscarPorId(id);
+        
+        return View(propietario);
     }
     //[HttpPost]
 

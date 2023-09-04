@@ -30,6 +30,7 @@ public class Propietario{
     public string Ciudad{get; set;}="";
     public int IdPropietario{get;set;}
     public string Telefono{get; set;}="";
+    public bool Estado{get;set;}=true;
     public override string ToString()
 		{
 			//return $"{Apellido}, {Nombre}";

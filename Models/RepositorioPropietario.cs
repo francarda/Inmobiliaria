@@ -11,7 +11,7 @@ public class RepositorioPropietario
         var res= new List<Propietario>();
         using(MySqlConnection conn = new MySqlConnection(connectionString)){
             //conn.Open();
-            var sql= "SELECT * FROM propietarios";
+            var sql= "SELECT * FROM propietarios WHERE estado=1";
             using(MySqlCommand cmd= new MySqlCommand(sql,conn))
             {
                 conn.Open();
@@ -42,8 +42,8 @@ public class RepositorioPropietario
       var res=-1;
       using(MySqlConnection conn= new MySqlConnection(connectionString)){
           
-          var sql= @"INSERT INTO propietarios(nombre,apellido,dni,telefono,direccion,mail,ciudad)
-           VALUES(@nombre,@apellido,@dni,@telefono,@direccion,@mail,@ciudad);
+          var sql= @"INSERT INTO propietarios(nombre,apellido,dni,telefono,direccion,mail,ciudad, estado)
+           VALUES(@nombre,@apellido,@dni,@telefono,@direccion,@mail,@ciudad, @estado);
            SELECT LAST_INSERT_ID()";
           using (MySqlCommand cmd= new MySqlCommand(sql,conn))
           {
@@ -54,6 +54,7 @@ public class RepositorioPropietario
             cmd.Parameters.AddWithValue("@direccion",p.Direccion);
             cmd.Parameters.AddWithValue("@mail",p.Mail);
             cmd.Parameters.AddWithValue("@ciudad",p.Ciudad);
+            cmd.Parameters.AddWithValue("@estado",1);
             conn.Open();
             res= Convert.ToInt32(cmd.ExecuteNonQuery());
             p.IdPropietario= res;
@@ -66,7 +67,7 @@ public class RepositorioPropietario
       var res=-1;
       using(MySqlConnection conn= new MySqlConnection(connectionString)){
           
-          var sql= @"DELETE FROM propietarios WHERE idPropietario=@id";
+          var sql= @"UPDATE propietarios SET estado=0 WHERE idPropietario=@id";
           using (MySqlCommand cmd= new MySqlCommand(sql,conn))
           {
             cmd.Parameters.AddWithValue("@id",id);

@@ -82,9 +82,7 @@
                 <a asp-action="Edit" asp-route-id="@item.IdInmueble" title="Editar"><span class="fa-solid fa-user-pen" style="color: #558b35;"></span></a>
                 <a asp-action="Delete" asp-route-id="@item.IdInmueble" title="Eliminar">
                 <span class="fa-solid fa-trash-arrow-up" style="color: #ea603e;"></span></a>
-               
-                @Html.ActionLink("Detalles", "Details", new { /* id=item.PrimaryKey */ }) 
-               <!-- @Html.ActionLink("Eliminar", "Delete", new { /* id=item.PrimaryKey */ })-->
+               <a asp-action="Details" asp-route-id="@item.IdInmueble" title="Details">Detalles</a>
             </td>
         </tr>
 }

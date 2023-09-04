@@ -1,10 +1,10 @@
 @model Inmobiliaria.Models.Contrato
 
 @{
-    ViewData["Title"] = "Editar contrato";
+    ViewData["Title"] = "Editar";
 }
 
-<h1>Editar</h1>
+<h1>Edit</h1>
 
 <h4>Contrato</h4>
 <hr />
@@ -14,18 +14,44 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="IdContrato" class="control-label"></label>
-                <input asp-for="IdContrato" class="form-control" />
-                <span asp-validation-for="IdContrato" class="text-danger"></span>
+                <input asp-for="IdContrato" class="form-control" readonly/>
+                <span asp-validation-for="IdContrato" class="text-danger" ></span>
             </div>
+         
             <div class="form-group">
-                <label asp-for="IdInquilino" class="control-label"></label>
-                <input asp-for="IdInquilino" class="form-control" />
+                <label asp-for="IdInquilino" class="control-label">Inquilino</label>
+                <input asp-for="IdInquilino"class="form-control" list="datal" placeholder="@Model.IdInquilino" value="@Model.IdInquilino">
+                <datalist id="datal">   
+                    @foreach (var item in ViewData["Inquilinos"] as List<Inquilino>) {
+                    
+                    <option class="list-group-item" value="@item.IdInquilino"> @item.toString()</option>
+                }
+        
+                </datalist>
                 <span asp-validation-for="IdInquilino" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="IdInmueble" class="control-label"></label>
-                <input asp-for="IdInmueble" class="form-control" />
+                <label asp-for="IdInmueble" class="control-label">Inmueble</label>
+                <input asp-for="IdInmueble"class="form-control" list="data2" placeholder="@Model.IdInmueble"value="@Model.IdInmueble" >
+                  <datalist id="data2">   
+                    @foreach (var item in ViewData["Inmuebles"] as List<Inmueble>) {
+                    
+                    <option class="list-group-item" value="@item.IdInmueble"> @item.toString()</option>
+                }
+        
+                </datalist>
                 <span asp-validation-for="IdInmueble" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Desde" class="control-label"></label>
+                <input asp-for="Desde" class="form-control" type="date" value='@Model.Desde.ToString("yyyy-MM-dd")'/>
+                <span asp-validation-for="Desde" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Hasta" class="control-label"></label>
+                <input asp-for="Hasta" class="form-control" type="date" value='@Model.Hasta.ToString("yyyy-MM-dd")'/>
+                <span asp-validation-for="Hasta" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Monto" class="control-label"></label>
@@ -33,7 +59,7 @@
                 <span asp-validation-for="Monto" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Guardar cambios" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>

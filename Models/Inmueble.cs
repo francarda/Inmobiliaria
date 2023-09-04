@@ -22,8 +22,11 @@ public bool Visible{get;set;}=true;
 [Display(Name ="Dueño")]
 public int IdPropietario{get;set;}
 [ForeignKey(nameof(IdPropietario))]
-public required Propietario Duenio{get;set;}
-
+public Propietario? Duenio{get;set;}
+public string toString(){
+    return Direccion;
+}
+public bool Estado{get;set;}=true;
 }
 /*dotnet-aspnet-codegenerator controller -name "InmuebleController" -outDir "Controllers" -namespace "Inmobiliaria.Controllers" -f -actions
 

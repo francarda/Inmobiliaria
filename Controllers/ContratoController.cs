@@ -11,6 +11,8 @@ namespace Inmobiliaria.Controllers
     public class ContratoController : Controller
     {
         RepositorioContrato repoContrato=new RepositorioContrato();
+        RepositorioInquilino repoInquilino=new RepositorioInquilino();
+        RepositorioInmueble repoInmueble=new RepositorioInmueble();
         // GET: Contrato
         public ActionResult Index()
         {
@@ -21,20 +23,27 @@ namespace Inmobiliaria.Controllers
         // GET: Contrato/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Contrato con= repoContrato.BuscarPorId(id);
+            return View(con);
         }
 
         // GET: Contrato/Create
         public ActionResult Create()
         {
+            List<Inquilino> listaInquilinos= repoInquilino.ObtenerInquilinos();
+            List<Inmueble> listaInmuebles= repoInmueble.ObtenerInmuebles();
+            ViewData["Inquilinos"]= listaInquilinos;
+            ViewData["Inmuebles"]= listaInmuebles;
             return View();
         }
 
         // POST: Contrato/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
         public ActionResult Create(Contrato contrato)
         {
+             
             try
             {
                 
@@ -51,6 +60,10 @@ namespace Inmobiliaria.Controllers
         public ActionResult Edit(int id)
         {
             Contrato contrato= repoContrato.BuscarPorId(id);
+            List<Inquilino> listaInquilinos= repoInquilino.ObtenerInquilinos();
+            List<Inmueble> listaInmuebles= repoInmueble.ObtenerInmuebles();
+            ViewData["Inquilinos"]= listaInquilinos;
+            ViewData["Inmuebles"]= listaInmuebles;
             return View(contrato);
         }
 

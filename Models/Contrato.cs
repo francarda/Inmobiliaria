@@ -5,16 +5,16 @@ using Inmobiliaria.Models;
 namespace Inmobiliaria.Models;
 [Table("contrato")]
 public class Contrato{
-    [Display(Name="Código" )]
-    public int IdContrato { get; set;}
+    [Display(Name="Código contrato" )]
+    public int IdContrato { get; set;}=0;
     
     [Display(Name="Cod Inquilino")]
-    public int IdInquilino{ get; set;}
+    public int IdInquilino{ get; set;}=0;
     
     [Display(Name="Cod Inmueble")]
-    public int IdInmueble{get; set;}
-    
-    public Decimal Monto{ get; set;}
+    public int IdInmueble{get; set;}=0;
+    [Display(Name="Monto")]
+    public Decimal Monto{ get; set;}=0;
     
     [Display(Name="Fecha inicio")]
     public DateOnly Desde{ get; set;}
@@ -23,9 +23,12 @@ public class Contrato{
     public DateOnly Hasta{ get; set;}
     
     [Display(Name="Inquilino")]
-    public Inquilino inquilino{get; set;}
-    [Display(Name="Cod Inmueble")]
-    public Inmueble inmueble{get; set;}
+    public Inquilino inquilino{get; set;}=null;
+   
+    [Display(Name="Inmueble")]
+    public Inmueble inmueble{get; set;}=null;
+    public bool Activo{get;set;}=true;
+
     
     
 

@@ -71,7 +71,7 @@
                  <a asp-action="Delete" asp-route-id="@item.IdInquilino" title="Eliminar">
                     <span class="fa-solid fa-trash-arrow-up" style="color: #ea603e;"></span></a>
                
-                @Html.ActionLink("Detalles", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Detalles", "Details", new {id=item.IdInquilino }) |
                <!-- @Html.ActionLink("Eliminar", "Delete", new { /* id=item.PrimaryKey */ })-->
             
 

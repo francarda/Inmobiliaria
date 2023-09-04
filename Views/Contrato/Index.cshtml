@@ -19,12 +19,20 @@
                 @Html.DisplayNameFor(model => model.IdInquilino)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.inquilino)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.IdInmueble)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Monto)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Desde)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hasta)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -37,17 +45,26 @@
                 @Html.DisplayFor(modelItem => item.IdInquilino)
             </td>
             <td>
+                @item.inquilino.toString()
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.IdInmueble)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Monto)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdInmueble" title="Editar"><span class="fa-solid fa-user-pen" style="color: #558b35;"></span></a>
-                <a asp-action="Delete" asp-route-id="@item.IdInmueble" title="Eliminar">
+                @Html.DisplayFor(modelItem => item.Desde)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hasta)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdContrato" title="Editar"><span class="fa-solid fa-user-pen" style="color: #558b35;"></span></a>
+                <a asp-action="Delete" asp-route-id="@item.IdContrato" title="Eliminar">
                 <span class="fa-solid fa-trash-arrow-up" style="color: #ea603e;"></span></a>
-               
-                @Html.ActionLink("Detalles", "Details", new { /* id=item.PrimaryKey */ }) 
+                <a asp-action="Details" asp-route-id="@item.IdContrato" title="Details">Detalles</a>
+                <!-- @Html.ActionLink("Detalles", "Details", new {id=item.IdContrato})--> 
                
             </td>
         </tr>
