@@ -57,10 +57,7 @@
                     </div>
                 </div>
                
-                @if(User.IsInRole("Administrador") || User.IsInRole("SuperAdministrador"))
-					{
-						<a class="py-2 d-none d-md-inline-block" asp-controller="Usuarios" asp-action="Index"><span class="lnr lnr-star"></span> Usuarios</a>
-					}
+            
             }
         </nav>
     </header>
