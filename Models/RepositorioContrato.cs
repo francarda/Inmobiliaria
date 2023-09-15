@@ -155,4 +155,51 @@ public class RepositorioContrato{
       }
       return p;
     }
+     public Contrato BuscarPorIdConDatos(int id){
+      Contrato p=null;
+      var res=-1;
+      using(MySqlConnection conn= new MySqlConnection(connectionString)){
+          var sql= @"SELECT c.idContrato, c.idInmueble, c.idInquilino, desde, hasta, monto, inqui.dni, nombre, apellido,inmu.direccion,uso,tipo,cantAmbientes,precio,latitud,longitud,visible FROM Contratos c inner join Inmuebles inmu on c.idInmueble=inmu.idInmueble inner join Inquilinos inqui on c.idInquilino=inqui.idInquilino WHERE c.idContrato=@id";
+          using (MySqlCommand cmd= new MySqlCommand(sql,conn)){
+            cmd.Parameters.AddWithValue("@id",id);
+            conn.Open();
+             using(MySqlDataReader reader= cmd.ExecuteReader()){
+              if(reader.Read()){
+                p= new Contrato{
+                            IdContrato=id,
+                            IdInmueble = reader.GetInt32("idInmueble"),
+                            IdInquilino = reader.GetInt32("idInquilino"),
+                            Desde = DateOnly.FromDateTime(reader.GetDateTime("desde")),
+                            Hasta = DateOnly.FromDateTime(reader.GetDateTime("hasta")),
+                            Monto= reader.GetDecimal("monto"),
+                            inquilino = new Inquilino()
+                              {
+                                IdInquilino = reader.GetInt32("idInquilino"),
+                                Dni = reader.GetString("dni"), 
+                                Nombre = reader.GetString("nombre"), 
+                                Apellido = reader.GetString("apellido")
+
+                              },
+                              inmueble = new Inmueble()
+                             {
+                                IdInmueble = reader.GetInt32("idInmueble"),
+                                Direccion = reader.GetString("direccion"),
+                                Uso = reader.GetString("uso"),
+                                Tipo = reader.GetString("tipo"),
+                                CantAmbientes = reader.GetInt32("cantAmbientes"),
+                                Precio = (float)reader.GetDecimal("precio"),
+                                Latitud = reader.GetString("latitud"),
+                                Longitud = reader.GetString("longitud"),
+                                Visible = reader.GetBoolean("visible"),
+                            }
+
+                            
+                        };
+                    }
+                }
+            conn.Close();
+          }
+      }
+      return p;
+    }
 }

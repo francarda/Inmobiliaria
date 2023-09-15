@@ -59,10 +59,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Hasta)
             </td>
-            <td>
+            <td>@if (User.IsInRole("Administrador") || User.IsInRole("SuperAdministrador"))
+					{
                 <a asp-action="Edit" asp-route-id="@item.IdContrato" title="Editar"><span class="fa-solid fa-user-pen" style="color: #558b35;"></span></a>
                 <a asp-action="Delete" asp-route-id="@item.IdContrato" title="Eliminar">
-                <span class="fa-solid fa-trash-arrow-up" style="color: #ea603e;"></span></a>
+                <span class="fa-solid fa-trash-arrow-up" style="color: #ea603e;"></span></a>}
                 <a asp-action="Details" asp-route-id="@item.IdContrato" title="Details">Detalles</a>
                 <!-- @Html.ActionLink("Detalles", "Details", new {id=item.IdContrato})--> 
                

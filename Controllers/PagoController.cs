@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Inmobiliaria.Models;
@@ -9,46 +10,45 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Inmobiliaria.Controllers
 {
-    public class InmuebleController : Controller
+    public class PagoController : Controller
     {
-        private RepositorioInmueble repo= new RepositorioInmueble();
-        private Inmueble inmu;
-        // GET: Inmueble
+        RepositorioPago repoPago = new RepositorioPago();
+        RepositorioContrato repoContrato= new RepositorioContrato();
+        Pago pago= new Pago();
+        // GET: Pago
         public ActionResult Index()
         {
-            List<Inmueble> lista= repo.ObtenerInmuebles();
-
-            return View(lista);
+            List<Pago> pagos= repoPago.ObtenerPagos(); 
+           
+            return View(pagos);
         }
 
-        // GET: Inmueble/Details/5
+        // GET: Pago/Details/5
         public ActionResult Details(int id)
         {
-            RepositorioInmueble repoIn= new RepositorioInmueble();
-            inmu=repoIn.BuscarPorId(id);
-            return View(inmu);
+            Pago pago= repoPago.BuscarPorId(id);
+            Contrato cont= repoContrato.BuscarPorIdConDatos(pago.IdContrato);
+            pago.contrato=cont;
+            return View(pago);
         }
 
-        // GET: Inmueble/Create
+        // GET: Pago/Create
         public ActionResult Create()
         {
-            RepositorioPropietario propi= new RepositorioPropietario();
-            List<Propietario> lista;
-            lista= propi.ObtenerPropietarios();
-
-            ViewData["lista"]= lista;
+            List<Contrato> contratos=repoContrato.ObtenerContratos();
+            ViewData["contratos"]= contratos;
             return View();
         }
 
-        // POST: Inmueble/Create
+        // POST: Pago/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Inmueble inmueble)
+        public ActionResult Create(Pago p)
         {
             try
             {
                 
-                repo.Alta(inmueble);
+                repoPago.Alta(p);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -57,26 +57,23 @@ namespace Inmobiliaria.Controllers
             }
         }
 
-        // GET: Inmueble/Edit/5
+        // GET: Pago/Edit/5
         public ActionResult Edit(int id)
-        {
-             RepositorioPropietario propi= new RepositorioPropietario();
-            List<Propietario> lista;
-            lista= propi.ObtenerPropietarios();
-
-            ViewData["lista"]= lista;
-            inmu=repo.BuscarPorId(id);
-            return View(inmu);
+        {   
+            pago= repoPago.BuscarPorId(id);
+            List<Contrato> contratos=repoContrato.ObtenerContratos();
+            ViewData["contratos"]= contratos;
+            return View(pago);
         }
 
-        // POST: Inmueble/Edit/5
+        // POST: Pago/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Inmueble inmueble)
+        public ActionResult Edit(int id, Pago pag)
         {
             try
             {
-                repo.Modificar(inmueble);
+                repoPago.Modificar(pag);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -86,15 +83,15 @@ namespace Inmobiliaria.Controllers
             }
         }
 
-        // GET: Inmueble/Delete/5
+        // GET: Pago/Delete/5
         [Authorize(Policy = "Administrador")]
         public ActionResult Delete(int id)
         {
-            inmu=repo.BuscarPorId(id);
-            return View(inmu);
+             pago= repoPago.BuscarPorId(id);
+            return View(pago);
         }
 
-        // POST: Inmueble/Delete/5
+        // POST: Pago/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Policy = "Administrador")]
@@ -102,7 +99,7 @@ namespace Inmobiliaria.Controllers
         {
             try
             {
-                repo.Baja(id);
+              repoPago.Baja(id);
 
                 return RedirectToAction(nameof(Index));
             }

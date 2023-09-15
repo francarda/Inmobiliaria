@@ -80,8 +80,11 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdInmueble" title="Editar"><span class="fa-solid fa-user-pen" style="color: #558b35;"></span></a>
+                @if (User.IsInRole("Administrador") || User.IsInRole("SuperAdministrador"))
+					{
                 <a asp-action="Delete" asp-route-id="@item.IdInmueble" title="Eliminar">
                 <span class="fa-solid fa-trash-arrow-up" style="color: #ea603e;"></span></a>
+                    }
                <a asp-action="Details" asp-route-id="@item.IdInmueble" title="Details">Detalles</a>
             </td>
         </tr>

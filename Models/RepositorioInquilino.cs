@@ -36,6 +36,7 @@ public class RepositorioInquilino{
                         });
                     }
                 }
+                conn.Close();
             }
         }
         return res;
@@ -76,7 +77,7 @@ public class RepositorioInquilino{
             cmd.Parameters.AddWithValue("@id",id);
             conn.Open();
             res= cmd.ExecuteNonQuery();
-             
+            conn.Close(); 
           }
       }
       return res;

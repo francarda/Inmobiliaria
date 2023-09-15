@@ -28,9 +28,16 @@ public class Contrato{
     [Display(Name="Inmueble")]
     public Inmueble inmueble{get; set;}=null;
     public bool Activo{get;set;}=true;
-
-    
-    
+    public string toString()
+    {
+        string mensaje="Id: " + IdContrato + ", Inquilino: " + inquilino.toString() + ", Inmueble: " + inmueble.toString() + ", Monto: " + Monto + ", Desde: " + Desde + ", Hasta: " + Hasta;
+        return mensaje;
+    }
+    public string mensaje()
+    {
+    string mens="<p> Inquilino: " + inquilino.toString() + ". \n<br /> Inmueble: " + inmueble.toString() + ". \n<br> Desde: " + Desde + ".\n<br> Hasta: " + Hasta + "</p>";
+    return mens;
+    }
 
 
 }

@@ -45,6 +45,7 @@ public class RepositorioInmueble{
                         });
                     }
                 }
+                conn.Close(); 
             }
         }
         return res;
@@ -90,7 +91,7 @@ public class RepositorioInmueble{
             cmd.Parameters.AddWithValue("@id",id);
             conn.Open();
             res= cmd.ExecuteNonQuery();
-             
+             conn.Close(); 
           }
       }
       return res;

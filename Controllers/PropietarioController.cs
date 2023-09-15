@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Inmobiliaria.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Inmobiliaria.Controllers;
 
@@ -66,6 +67,7 @@ public class PropietarioController : Controller
         repositorio.Modificar(propietario);
         return RedirectToAction("Index");
     }
+    [Authorize(Policy = "Administrador")]
     public IActionResult Eliminar(int id)
     {
         RepositorioPropietario repositorio = new RepositorioPropietario();

@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @RenderSection("Styles", false)
     <title>@ViewData["Title"] - Inmobiliaria</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -12,36 +13,65 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Inmobiliaria</a>
-                <a class="navbar-brand" asp-area="" asp-controller="Propietario" asp-action="Index">Propietarios</a>
-                <a class="navbar-brand" asp-area="" asp-controller="Inquilino" asp-action="Index">Inquilinos</a>
-                <a class="navbar-brand" asp-area="" asp-controller="Inmueble" asp-action="Index">Inmuebles</a>
-                <a class="navbar-brand" asp-area="" asp-controller="Contrato" asp-action="Index">Contrato</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+            @if (!User.Identity.IsAuthenticated)
+				{
+					<a class="py-2" asp-controller="Home" asp-action="Index"><span class="lnr lnr-home"></span> Inicio</a> 
+                    <a class="py-2 d-none d-md-inline-block float-right" href='/Usuarios/login'><span class="lnr lnr-enter"></span> Acceder</a>
+                    
+				}
+            else{
+
+            
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Inmobiliaria</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Propietario" asp-action="Index">Propietarios</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Inquilino" asp-action="Index">Inquilinos</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Inmueble" asp-action="Index">Inmuebles</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Contrato" asp-action="Index">Contrato</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Pago" asp-action="Index">Pagos</a>
+                    <!--a class="py-2 d-none d-md-inline-block float-right" href='@Url.Link("logout", null)'><span class="lnr lnr-enter"></span> Salir</a-->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    @if(User.IsInRole("Administrador") || User.IsInRole("SuperAdministrador"))
+					{
+						<a class="py-2 d-none d-md-inline-block" asp-controller="Usuarios" asp-action="Index"><span class="lnr lnr-star"></span> Usuarios</a>
+					}
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+                <div class="container border">
+                    <div class="col-6 ">@User.Identity.Name</div>
+                    <div class="col-6">
+                        <a class="dropdown-item text-dark" asp-controller="Usuarios" asp-action="Perfil"><i class="lnr lnr-user"></i> Perfil</a>
+							<a class="dropdown-item text-dark" asp-controller="Usuarios" asp-action="Logout"><i class="lnr lnr-exit"></i> Salir</a>
+                    </div>
+                </div>
+               
+                @if(User.IsInRole("Administrador") || User.IsInRole("SuperAdministrador"))
+					{
+						<a class="py-2 d-none d-md-inline-block" asp-controller="Usuarios" asp-action="Index"><span class="lnr lnr-star"></span> Usuarios</a>
+					}
+            }
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer text-muted">
         <div class="container">
             &copy; 2023 - Inmobiliaria - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

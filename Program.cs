@@ -1,7 +1,26 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+	.AddCookie(options =>//el sitio web valida con cookie
+	{
+		options.LoginPath = "/Usuarios/Login";
+		options.LogoutPath = "/Usuarios/Logout";
+		options.AccessDeniedPath = "/Home/Restringido";
+		//options.ExpireTimeSpan = TimeSpan.FromMinutes(5);//Tiempo de expiración
+	});
+    ///politicas
+builder.Services.AddAuthorization(options =>
+{
+	options.AddPolicy("Empleado", policy => policy.RequireClaim(ClaimTypes.Role, "Administrador", "Empleado"));
+	options.AddPolicy("Administrador", policy => policy.RequireRole("Administrador", "SuperAdministrador"));
+});
+
 
 var app = builder.Build();
 
@@ -13,13 +32,15 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapControllerRoute("login", "entrar/{**accion}", new { controller = "Usuarios", action = "Login" });
+app.MapControllerRoute("logout", "salir/{**accion}", new { controller = "Usuarios", action = "Logout" });
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

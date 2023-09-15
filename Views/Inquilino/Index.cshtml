@@ -68,11 +68,13 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdInquilino" title="Editar"><span class="fa-solid fa-user-pen" style="color: #558b35;"></span></a>
+                @if (User.IsInRole("Administrador") || User.IsInRole("SuperAdministrador"))
+					{
                  <a asp-action="Delete" asp-route-id="@item.IdInquilino" title="Eliminar">
                     <span class="fa-solid fa-trash-arrow-up" style="color: #ea603e;"></span></a>
-               
+                    }
                 @Html.ActionLink("Detalles", "Details", new {id=item.IdInquilino }) |
-               <!-- @Html.ActionLink("Eliminar", "Delete", new { /* id=item.PrimaryKey */ })-->
+               
             
 
             </td>
