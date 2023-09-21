@@ -45,6 +45,7 @@ namespace Inmobiliaria.Controllers
 		public ActionResult Details(int id)
 		{
 			var e = repositorio.ObtenerPorId(id);
+			
 			return View(e);
 		}
 
@@ -108,15 +109,19 @@ namespace Inmobiliaria.Controllers
 
 		// GET: Usuarios/Edit/5
 		[Authorize]
-		public ActionResult Perfil()
+		/*public ActionResult Perfil()
 		{
 			ViewData["Title"] = "Mi perfil";
 			var u = repositorio.ObtenerPorEmail(User.Identity.Name);
+			//CambioClave cc= new CambioClave();
+			//cc.Id = u.Id;
 			ViewBag.Roles = Usuario.ObtenerRoles();
-			return View("Edit", u);
-		}
+			//return RedirectToAction(nameof(CambioClaveController.Perfila), new { cc });
+			return View("Edit",u);
+			//return View("Editartodo", cc);
+		}*/
 		
-		
+		/*
 		// GET: Usuarios/Edit/5
 		[Authorize(Policy = "Administrador")]
 		public ActionResult Edit(int id)
@@ -160,7 +165,7 @@ namespace Inmobiliaria.Controllers
 				throw;
 			}
 		}
-
+		*/
 		// GET: Usuarios/Delete/5
 		[Authorize(Policy = "Administrador")]
 		public ActionResult Delete(int id)
@@ -364,22 +369,8 @@ namespace Inmobiliaria.Controllers
 			ViewBag.Roles = Usuario.ObtenerRoles();
 			ViewData["id"] = id;
 			return View("CambioClave");
-		}*/
-		[Authorize]
-
-		[Route("cambiar", Name = "cambiar")]
-		public ActionResult CambiarTodo(int id)
-		{
-			CambioClave cm=new CambioClave();
-			var u = repositorio.ObtenerPorId(id);
-			cm.Nombre=u.Nombre;
-			cm.Apellido=u.Apellido;
-			cm.Email=u.Email;
-			
-			ViewBag.Roles = Usuario.ObtenerRoles();
-			return View("Edit", cm);
 		}
-
+		*/
 		/*public ActionResult CambioClave()
 		{
 			CambioClave cm= new CambioClave();

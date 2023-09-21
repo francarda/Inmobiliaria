@@ -15,8 +15,8 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             @if (!User.Identity.IsAuthenticated)
 				{
-					<a class="py-2" asp-controller="Home" asp-action="Index"><span class="lnr lnr-home"></span> Inicio</a> 
-                    <a class="py-2 d-none d-md-inline-block float-right" href='/Usuarios/login'><span class="lnr lnr-enter"></span> Acceder</a>
+					
+                    <a class="py-2 d-none d-md-inline-block float-right m-3" href='/Usuarios/login'><i class="fa-solid fa-right-to-bracket" style="color: #1f4951;">Acceder</i></a>
                     
 				}
             else{
@@ -41,9 +41,9 @@
 					}-->
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
+                            <!--li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
+                            </li-->
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
@@ -60,7 +60,7 @@
 					{
 						<a class="dropdown-item text-dark" asp-controller="Usuarios" asp-action="Index"><i class="lnr lnr-user"></i> Usuarios |<i class="fa-solid fa-users" ></i></a>
 					}
-                        <a class="dropdown-item text-dark" asp-controller="Usuarios" asp-action="Perfil"><i class="lnr lnr-user"></i> Perfil  | <i class="fa-solid fa-user-pen" ></i></a>
+                        <a class="dropdown-item text-dark" asp-controller="CambioClave" asp-action="Perfil"><i class="lnr lnr-user"></i> Perfil  | <i class="fa-solid fa-user-pen" ></i></a>
                         <a class="dropdown-item text-dark" asp-controller="Usuarios" asp-action="Logout"><i class="lnr lnr-exit"></i> Salir  | <i class="fa-solid fa-right-from-bracket"></i></a>
 
                     </div>

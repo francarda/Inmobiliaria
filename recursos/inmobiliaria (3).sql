@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-09-2023 a las 19:46:05
+-- Tiempo de generación: 21-09-2023 a las 13:18:49
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -45,7 +45,7 @@ INSERT INTO `contratos` (`idContrato`, `idInquilino`, `idInmueble`, `desde`, `ha
 (1, 2, 8, '2023-08-02', '2023-08-25', '20000', 0),
 (5, 1, 5, '2023-05-10', '2023-05-15', '155500', 0),
 (6, 3, 13, '2023-09-01', '2023-05-15', '1000', 1),
-(7, 2, 9, '2023-09-02', '2023-09-14', '1321321', 1),
+(7, 2, 13, '2023-09-02', '2023-09-14', '1321321', 1),
 (8, 3, 8, '2023-09-19', '2023-09-30', '1235464', 0),
 (9, 1, 8, '2023-09-01', '2023-09-28', '232321', 0),
 (10, 2, 13, '2023-09-08', '2023-09-21', '232321', 1),
@@ -97,7 +97,8 @@ INSERT INTO `inmuebles` (`idInmueble`, `direccion`, `uso`, `tipo`, `cantAmbiente
 (18, 'av mitre 1555', 'comercial', 'deposito supermercad', 8, '266565', '5555', 0, '555', 2, 1),
 (23, 'las golondrinas', 'personal', 'casa', 4, '8000000', '12368', 0, '3215465', 2, 1),
 (25, 'Las aguilas 12', 'familiar', 'casa', 4, '100000000', '321321', 0, '1235', 5, 0),
-(26, 'Las aguilas 12', 'comercial', 'casa', 4, '100000000', '321321', 0, '1235', 4, 1);
+(26, 'Las aguilas 12', 'comercial', 'casa', 4, '100000000', '321321', 0, '1235', 4, 1),
+(27, 'Las aguilas 12', 'familiar', 'deposito', 4, '200000', '321321', 1, '1235', 11, 1);
 
 -- --------------------------------------------------------
 
@@ -122,7 +123,7 @@ CREATE TABLE `inquilinos` (
 --
 
 INSERT INTO `inquilinos` (`idInquilino`, `dni`, `nombre`, `apellido`, `telefono`, `mail`, `direccion`, `ciudad`, `estado`) VALUES
-(1, '321321', 'primero', 'primer', '2134564', 'sdfsdf@laskdjf', 'avenida1', 'merlo', 1),
+(1, '321321', 'primero', 'primer', '21345', 'sdfsdf@laskdjf', 'avenida1', 'merlo', 1),
 (2, '2222222', 'segundo', 'segundito', '2121212121', 'segundo@hotmail.com', 'valle del sol 4568', 'Merlo', 1),
 (3, '33333333333', 'tercero', 'Tercero', '313333333', 'tercero@hotmail.com', 'av norte 333', 'Los Molles', 1),
 (6, '4444444', 'cuarto', 'Cuartos', '456845', 'cuatro@cuarta.com', 'Long valley', 'Carpinteria', 1),
@@ -148,7 +149,7 @@ CREATE TABLE `pagos` (
 --
 
 INSERT INTO `pagos` (`idPago`, `IdContrato`, `numeroDePago`, `fechaDePago`, `estado`, `monto`) VALUES
-(1, 10, 2, '2023-09-01', 1, '20000'),
+(1, 10, 3, '2023-09-01', 1, '20005'),
 (3, 10, 1, '2023-01-01', 1, '1500'),
 (4, 7, 1, '2023-09-05', 1, '155500'),
 (5, 10, 1, '2023-09-05', 0, '155500');
@@ -180,7 +181,8 @@ INSERT INTO `propietarios` (`idPropietario`, `dni`, `apellido`, `nombre`, `telef
 (2, '232658459', 'Scar', 'Lucia', '2664167312', '9 de julio 1500', 'Merlo', 'lucia@gmail.com', 1),
 (3, '56088565', 'Franccesca', 'Emma', '2664167355', 'Av norte 1556', 'Merlo', 'emma@franccesca.com', 1),
 (4, '11989456', 'Cardarelli', 'Jorge', '2657547060', '9 de julio 1564', 'Villa Mercedes', 'jorgecardarelli@hotmail.com', 1),
-(5, '16568456', 'Said', 'Liliana', '2664758486', 'Las aguilas 12', 'Carpinteria', 'liliana@gmail.com', 1);
+(5, '16568456', 'Said', 'Liliana', '2664758486', 'Las aguilas 12', 'Carpinteria', 'liliana@gmail.com', 1),
+(11, '1234', 'luza', 'mariano', '2224', 'avenida1', 'merlo', 'mariano@hotmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -204,10 +206,10 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `avatar`, `email`, `clave`, `rol`) VALUES
 (1, 'Carlitos', 'carlos', '', 'carlos@carlos', '123', 2),
-(6, 'Juan', 'Juan', '/Uploads\\avatar_1.jpg\n', 'juan@juan', 'qYM7JOKErgp/dPvpAnIoj37QqFlc3Mh8h9tlz4kuRY0=', 2),
-(12, 'Carlos', 'car', '/Uploads\\avatar_12.jpg', 'car@car', 'z8zuCFeBAqW6MVxL4S3j3QmQKo/LxokLAVi5HUnAIP0=', 2),
+(6, 'Juan', 'Juan', '/Uploads\\avatar_6.jpg', 'juan@juan', 'qYM7JOKErgp/dPvpAnIoj37QqFlc3Mh8h9tlz4kuRY0=', 3),
 (13, 'lucia', 'sca', '/Uploads\\avatar_13.jpg', 'luci@luci', 'TlSu1CQvtaIAAswpBfoG3HqSpcuDDAgXuyn3sXc40s4=', 2),
-(14, 'empleado', 'empleado', '/Uploads\\avatar_14.png ', 'emp@emp', '123', 0);
+(14, 'empla', 'Carmelio', '/Uploads\\avatar_14.png', 'emp@emp', 'qYM7JOKErgp/dPvpAnIoj37QqFlc3Mh8h9tlz4kuRY0=', 3),
+(15, 'pepes', 'pepe', '/Uploads\\avatar_15.jpg', 'pepe@pepe', 'qYM7JOKErgp/dPvpAnIoj37QqFlc3Mh8h9tlz4kuRY0=', 3);
 
 --
 -- Índices para tablas volcadas
@@ -267,7 +269,7 @@ ALTER TABLE `contratos`
 -- AUTO_INCREMENT de la tabla `inmuebles`
 --
 ALTER TABLE `inmuebles`
-  MODIFY `idInmueble` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `idInmueble` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `inquilinos`
@@ -285,13 +287,13 @@ ALTER TABLE `pagos`
 -- AUTO_INCREMENT de la tabla `propietarios`
 --
 ALTER TABLE `propietarios`
-  MODIFY `idPropietario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idPropietario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas

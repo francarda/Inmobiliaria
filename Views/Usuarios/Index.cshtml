@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create"><i class="fa-solid fa-file-signature">Crear Usuario</i></a>
 </p>
 <table class="table">
     <thead>
@@ -55,7 +55,9 @@
 				@Html.DisplayFor(modelItem => item.RolNombre)
 			</td>
 			<td>
-				<a asp-action="Edit" asp-route-id="@item.Id" title="Editar"><span class="fa-solid fa-user-pen" style="color: #558b35;"></span></a>&nbsp;
+                 
+                <a asp-controller="CambioClave" asp-action="CambiarTodo" asp-route-id="@item.Id" title="Editar"><span class="fa-solid fa-user-pen" style="color: #558b35;"></span></a>&nbsp;
+
 				<a asp-action="Delete" asp-route-id="@item.Id"  title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar al usuario @item.Email?');"><span class="fa-solid fa-trash-arrow-up" style="color: #ea603e;"></span></a>
 			</td>
 		</tr>

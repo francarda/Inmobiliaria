@@ -258,7 +258,25 @@ namespace Inmobiliaria.Models
 			return res;
 		
 		}
-           
-    }
+		public string FotoDireccion(int id){
+			string avatarUrl = null;
+			using (MySqlConnection conn = new MySqlConnection(connectionString))
+			{
+				string sql = @"SELECT Avatar FROM Usuarios 
+					WHERE Id = @id";
+				using (MySqlCommand command = new MySqlCommand(sql, conn))
+				{
+					//command.CommandType = CommandType.Text;
+					
+					command.Parameters.AddWithValue("@id", id);
+					conn.Open();
+					avatarUrl = command.ExecuteScalar() as string;
+					conn.Close();
+				}
+
+			}
+        	return avatarUrl; 
+		}	
+	}
 }
 
