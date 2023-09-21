@@ -3,11 +3,11 @@
     ViewData["Title"] = "Propietarios";
 }
 
-<div class="text-center">
+<div >
     <h1 class="display-4">Lista de Propietarios(@Model.Count)</h1>
     <p>
-
-    <a asp-action="Create"><i class="fa-solid fa-user-plus" style="color: #129b22;">Agregar</i></a>
+        <!--style="color: #129b22;"-->
+    <a asp-action="Create"><i class="fa-solid fa-user-plus" >|  Agregar</i></a>
     </p>
     <table class="table mt-5">
         <tr class="encabezado">
@@ -27,13 +27,15 @@
                 <td> @p.Telefono</td>
                 <td>
                    <a asp-action="Editar" asp-route-id="@p.IdPropietario" title="Editar"><span class="fa-solid fa-user-pen" style="color: #558b35;"></span></a>
-                   @if (User.IsInRole("Administrador") || User.IsInRole("SuperAdministrador"))
+                   <a asp-action="Detalles" asp-route-id="@p.IdPropietario" title="Detalles"> <span class="fa-solid fa-circle-info" style="color: #4ea9bc;"></span></a>
+                    
+                    @if (User.IsInRole("Administrador") || User.IsInRole("SuperAdministrador"))
 					{
-                   <a asp-action="Eliminar" asp-route-id="@p.IdPropietario" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este elemento?');">
+                    <a asp-action="Eliminar" asp-route-id="@p.IdPropietario" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este elemento?');">
                     <span class="fa-solid fa-trash-arrow-up" style="color: #ea603e;"></span></a>
                     }
-                    <a asp-action="Detalles" asp-route-id="@p.IdPropietario" title="Detalles"> <span class="fa-solid fa-circle-info" style="color: #4ea9bc;"></span></a>
-                    <td>
+
+                <td>
                 
 
             </tr>

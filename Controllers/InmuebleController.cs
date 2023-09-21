@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Inmobiliaria.Controllers
 {
+    [Authorize]
     public class InmuebleController : Controller
     {
         private RepositorioInmueble repo= new RepositorioInmueble();

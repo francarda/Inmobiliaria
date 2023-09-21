@@ -7,7 +7,7 @@
 <h1>Contratos</h1>
 
 <p>
-    <a asp-action="Create">Crear contrato</a>
+    <a asp-action="Create"><i class="fa-solid fa-file-signature">|  Crear contrato</i></a>
 </p>
 <table class="table">
     <thead>
@@ -32,6 +32,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Hasta)
+            </th>
+            <th>
+                Detalles
             </th>
         </tr>
     </thead>
@@ -59,12 +62,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Hasta)
             </td>
-            <td>@if (User.IsInRole("Administrador") || User.IsInRole("SuperAdministrador"))
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdContrato" title="Editar"><i class="fa-solid fa-pen-to-square" style="color: #558b35;"></i></a>
+                <a asp-action="Details" asp-route-id="@item.IdContrato" title="Details"> <span class="fa-solid fa-circle-info" style="color: #4ea9bc;"></span></a>
+                @if (User.IsInRole("Administrador") || User.IsInRole("SuperAdministrador"))
 					{
-                <a asp-action="Edit" asp-route-id="@item.IdContrato" title="Editar"><span class="fa-solid fa-user-pen" style="color: #558b35;"></span></a>
                 <a asp-action="Delete" asp-route-id="@item.IdContrato" title="Eliminar">
                 <span class="fa-solid fa-trash-arrow-up" style="color: #ea603e;"></span></a>}
-                <a asp-action="Details" asp-route-id="@item.IdContrato" title="Details">Detalles</a>
                 <!-- @Html.ActionLink("Detalles", "Details", new {id=item.IdContrato})--> 
                
             </td>

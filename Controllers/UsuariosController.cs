@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json.Serialization;
+using NuGet.Protocol.Plugins;
 
 namespace Inmobiliaria.Controllers
 {
@@ -114,13 +115,15 @@ namespace Inmobiliaria.Controllers
 			ViewBag.Roles = Usuario.ObtenerRoles();
 			return View("Edit", u);
 		}
-
+		
+		
 		// GET: Usuarios/Edit/5
 		[Authorize(Policy = "Administrador")]
 		public ActionResult Edit(int id)
 		{
 			ViewData["Title"] = "Editar usuario";
 			var u = repositorio.ObtenerPorId(id);
+			
 			ViewBag.Roles = Usuario.ObtenerRoles();
 			return View(u);
 		}
@@ -141,6 +144,13 @@ namespace Inmobiliaria.Controllers
 					if (usuarioActual.Id != id)//si no es admin, solo puede modificarse él mismo
 						return RedirectToAction(nameof(Index), "Home");
 				}
+				string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+								password: u.Clave,
+								salt: System.Text.Encoding.ASCII.GetBytes("VillaMerlo"),
+								prf: KeyDerivationPrf.HMACSHA1,
+								iterationCount: 1000,
+								numBytesRequested: 256 / 8));
+				u.Clave = hashed;
 				repositorio.Modificacion(u);
 
 				return RedirectToAction(vista);
@@ -155,7 +165,10 @@ namespace Inmobiliaria.Controllers
 		[Authorize(Policy = "Administrador")]
 		public ActionResult Delete(int id)
 		{
-			return View();
+			ViewData["Title"] = "Editar usuario";
+			var u = repositorio.ObtenerPorId(id);
+			ViewBag.Roles = Usuario.ObtenerRoles();
+			return View(u);
 		}
 
 		// POST: Usuarios/Delete/5
@@ -166,7 +179,7 @@ namespace Inmobiliaria.Controllers
 		{
 			try
 			{
-				// TODO: Add delete logic here
+				repositorio.Baja(id);
 				var ruta = Path.Combine(environment.WebRootPath, "Uploads", $"avatar_{id}" + Path.GetExtension(usuario.Avatar));
 				if (System.IO.File.Exists(ruta))
 					System.IO.File.Delete(ruta);
@@ -309,6 +322,7 @@ namespace Inmobiliaria.Controllers
 						new Claim(ClaimTypes.Name, e.Email),
 						new Claim("FullName", e.Nombre + " " + e.Apellido),
 						new Claim(ClaimTypes.Role, e.RolNombre),
+						new Claim("UsuarioID", e.Id.ToString()),
 					};
 
 					var claimsIdentity = new ClaimsIdentity(
@@ -338,5 +352,44 @@ namespace Inmobiliaria.Controllers
 					CookieAuthenticationDefaults.AuthenticationScheme);
 			return RedirectToAction("Index", "Home");
 		}
+		// GET: /cambiarClave
+		/*
+		[Authorize]
+		public ActionResult CambiarClave()
+		{
+			CambioClave cm= new CambioClave();
+			string id=User.FindFirst("UsuarioID").Value;
+			/*ViewData["Title"] = "Cambio de clave";
+			var u = repositorio.ObtenerPorEmail(User.Identity.Name);
+			ViewBag.Roles = Usuario.ObtenerRoles();
+			ViewData["id"] = id;
+			return View("CambioClave");
+		}*/
+		[Authorize]
+
+		[Route("cambiar", Name = "cambiar")]
+		public ActionResult CambiarTodo(int id)
+		{
+			CambioClave cm=new CambioClave();
+			var u = repositorio.ObtenerPorId(id);
+			cm.Nombre=u.Nombre;
+			cm.Apellido=u.Apellido;
+			cm.Email=u.Email;
+			
+			ViewBag.Roles = Usuario.ObtenerRoles();
+			return View("Edit", cm);
+		}
+
+		/*public ActionResult CambioClave()
+		{
+			CambioClave cm= new CambioClave();
+			string id=User.FindFirst("UsuarioID").Value;
+			/*ViewData["Title"] = "Cambio de clave";
+			var u = repositorio.ObtenerPorEmail(User.Identity.Name);
+			ViewBag.Roles = Usuario.ObtenerRoles();
+			ViewData["id"] = id;
+			return View("CambioClave");
+		}*/
+
 	}
 }

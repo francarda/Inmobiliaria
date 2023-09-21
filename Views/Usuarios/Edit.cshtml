@@ -14,6 +14,11 @@
 				<span asp-validation-for="Id" class="text-danger"></span>
 			</div>
 			<div class="form-group">
+				<label asp-for="Email" class="control-label"></label>
+				<input asp-for="Email" readonly class="form-control" />
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+			<div class="form-group">
 				<label asp-for="Nombre" class="control-label"></label>
 				<input asp-for="Nombre" class="form-control" />
 				<span asp-validation-for="Nombre" class="text-danger"></span>
@@ -23,15 +28,17 @@
 				<input asp-for="Apellido" class="form-control" />
 				<span asp-validation-for="Apellido" class="text-danger"></span>
 			</div>
-			<div class="form-group">
-				<label asp-for="Email" class="control-label"></label>
-				<input asp-for="Email" class="form-control" />
-				<span asp-validation-for="Email" class="text-danger"></span>
-			</div>
-			<div class="form-group">
+			
+			<div class="form-groupd d-none">
 				<label asp-for="Clave" class="control-label"></label>
 				<input asp-for="Clave" class="form-control" />
 				<span asp-validation-for="Clave" class="text-danger"></span>
+			</div>
+			
+			<div class="form-group mt-2">
+				<button asp-action="CambiarClave" asp-route-Usuario="@Model" class="btn btn-primary">Cambiar Clave</button>
+				
+				
 			</div>
 			@if (User.IsInRole("Administrador") || User.IsInRole("SuperAdministrador"))
 			{
@@ -58,16 +65,23 @@
 				}
 			</div>
 			<div class="form-group">
+				<label asp-for="AvatarFile" class="control-label"></label>
+				<input type="file" name="AvatarFile" />
+				<span asp-validation-for="AvatarFile" class="text-danger"></span>
+			</div>
+			
+			<div class="form-group">
 				<input type="submit" value="Save" class="btn btn-primary" />
 			</div>
 		</form>
 	</div>
 </div>
+
 @if (User.IsInRole("Administrador") || User.IsInRole("SuperAdministrador"))
 {
 
 
-	<a asp-action="Index">Volver a la lista</a>
+	<a asp-action="Index"><i class="fa-solid fa-caret-left"> Volver a la lista</i></a>
 
 		}else{
 
@@ -83,3 +97,35 @@
 	<!--esta sección se renderiza en el layout donde dice RenderSection("Styles", false)-->
 	<!--<link href="~/css/forms.css" rel="stylesheet" />-->
 }
+
+
+
+
+<!--				<button id="btnCambiarClave" class="btn btn-primary">Cambiar Clave</button>
+
+
+<script>
+    document.getElementById("btnCambiarClave").addEventListener("click", function () {
+        // Obtener el usuario de la vista y convertirlo a JSON
+        var usuario = @Html.Raw(Json.Serialize(Model));
+
+        // Enviar una solicitud POST al controlador
+        fetch("/Controlador/Usuarios/CambiarClave", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(usuario)
+        })
+        .then(response => {
+            if (response.ok) {
+                // Manejar la respuesta exitosa, por ejemplo, redirigir o mostrar un mensaje
+            } else {
+                // Manejar errores en la respuesta
+            }
+        })
+        .catch(error => {
+            // Manejar errores en la solicitud
+        });
+    });
+</script>-->

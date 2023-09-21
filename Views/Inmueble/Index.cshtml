@@ -7,7 +7,7 @@
 <h1>Inmuebles</h1>
 
 <p>
-    <a asp-action="Create">Crear Nuevo</a>
+    <a asp-action="Create"><i class="fa-solid fa-house">|  Crear Inmueble</i></a>
 </p>
 <table class="table">
     <thead>
@@ -24,7 +24,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Tipo)
             </th>
-            <th>
+            <!--th>
                 @Html.DisplayNameFor(model => model.CantAmbientes)
             </th>
             <th>
@@ -32,7 +32,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Longitud)
-            </th>
+            </th-->
             <th>
                 @Html.DisplayNameFor(model => model.Precio)
             </th>
@@ -42,7 +42,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.IdPropietario)
             </th>
-            <th></th>
+            <th>
+                Acciones
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -60,7 +62,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Tipo)
             </td>
-            <td>
+            <!--td>
                 @Html.DisplayFor(modelItem => item.CantAmbientes)
             </td>
             <td>
@@ -68,7 +70,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Longitud)
-            </td>
+            </td-->
             <td>
                 @Html.DisplayFor(modelItem => item.Precio)
             </td>
@@ -79,13 +81,13 @@
                 @item.Duenio.ToString()
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdInmueble" title="Editar"><span class="fa-solid fa-user-pen" style="color: #558b35;"></span></a>
+                <a asp-action="Edit" asp-route-id="@item.IdInmueble" title="Editar"><i class="fa-solid fa-pen-to-square" style="color: #558b35;"></i></a>
+               <a asp-action="Details" asp-route-id="@item.IdInmueble" title="Details"><span class="fa-solid fa-circle-info" style="color: #4ea9bc;"></span></a>
                 @if (User.IsInRole("Administrador") || User.IsInRole("SuperAdministrador"))
 					{
                 <a asp-action="Delete" asp-route-id="@item.IdInmueble" title="Eliminar">
                 <span class="fa-solid fa-trash-arrow-up" style="color: #ea603e;"></span></a>
                     }
-               <a asp-action="Details" asp-route-id="@item.IdInmueble" title="Details">Detalles</a>
             </td>
         </tr>
 }

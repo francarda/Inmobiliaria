@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Inmobiliaria.Controllers
 {
+    [Authorize]
     public class PagoController : Controller
     {
         RepositorioPago repoPago = new RepositorioPago();

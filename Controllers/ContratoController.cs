@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Inmobiliaria.Controllers
-{
+{   [Authorize]
     public class ContratoController : Controller
     {
         RepositorioContrato repoContrato=new RepositorioContrato();
@@ -87,6 +87,7 @@ namespace Inmobiliaria.Controllers
 
         // GET: Contrato/Delete/5
         [Authorize(Policy = "Administrador")]
+        
         public ActionResult Delete(int id)
         {
             Contrato contrato= repoContrato.BuscarPorId(id);

@@ -64,6 +64,7 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.IdPago }) |
-    <a asp-action="Index">Volver a la lista</a>
+    <a asp-action="Edit" asp-route-id="@Model.IdPago" title="Detalles"><i class="fa-solid fa-pen-to-square mt-3"style="color: #558b35;">Editar</i></a><br>
+    
+    <a asp-action="Index"><i class="fa-solid fa-caret-left"> Volver</i></a>
 </div>

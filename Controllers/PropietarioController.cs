@@ -4,9 +4,10 @@ using Inmobiliaria.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Inmobiliaria.Controllers;
-
+[Authorize]
 public class PropietarioController : Controller
 {
+   
     private readonly ILogger<HomeController> _logger;
 
     public PropietarioController(ILogger<HomeController> logger)

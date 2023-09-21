@@ -11,6 +11,7 @@ namespace Inmobiliaria.Controllers
 {
     public class InquilinoController : Controller
     {
+        [Authorize]
         // GET: Inquilino
         public ActionResult Index()
         {

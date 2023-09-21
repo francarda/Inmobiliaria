@@ -191,6 +191,74 @@ namespace Inmobiliaria.Models
 			}
 			return e;
 		}
-	}
+
+		public int ModificarNombres(string nombre, string apellido, int id , string Email)
+		{
+			int res = -1;
+			using (MySqlConnection conn = new MySqlConnection(connectionString))
+			{
+				string sql = @"UPDATE Usuarios 
+					SET Nombre=@nombre, Apellido=@apellido, Email=@email
+					WHERE Id = @id";
+				using (MySqlCommand command = new MySqlCommand(sql, conn))
+				{
+					//command.CommandType = CommandType.Text;
+					command.Parameters.AddWithValue("@nombre", nombre);
+					command.Parameters.AddWithValue("@apellido", apellido);
+					
+					command.Parameters.AddWithValue("@id", id);
+					command.Parameters.AddWithValue("@email", Email);
+					conn.Open();
+					res = command.ExecuteNonQuery();
+					conn.Close();
+				}
+			}
+			return res;
+		}
+
+        public int CambiarClave(string hashed, int id)
+        {
+			int res = -1;
+			using (MySqlConnection conn = new MySqlConnection(connectionString))
+			{
+				string sql = @"UPDATE Usuarios 
+					SET Clave=@clave
+					WHERE Id = @id";
+				using (MySqlCommand command = new MySqlCommand(sql, conn))
+				{
+					//command.CommandType = CommandType.Text;
+					command.Parameters.AddWithValue("@clave",hashed);
+					command.Parameters.AddWithValue("@id", id);
+					conn.Open();
+					res = command.ExecuteNonQuery();
+					conn.Close();
+				}
+			}
+			return res;
+		
+		}
+		public int CambiarFoto(string url, int id)
+        {
+			int res = -1;
+			using (MySqlConnection conn = new MySqlConnection(connectionString))
+			{
+				string sql = @"UPDATE Usuarios 
+					SET Avatar=@avatar
+					WHERE Id = @id";
+				using (MySqlCommand command = new MySqlCommand(sql, conn))
+				{
+					//command.CommandType = CommandType.Text;
+					command.Parameters.AddWithValue("@avatar",url);
+					command.Parameters.AddWithValue("@id", id);
+					conn.Open();
+					res = command.ExecuteNonQuery();
+					conn.Close();
+				}
+			}
+			return res;
+		
+		}
+           
+    }
 }
 
