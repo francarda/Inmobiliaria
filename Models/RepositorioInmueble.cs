@@ -57,7 +57,7 @@ public class RepositorioInmueble{
             using(MySqlConnection conn= new MySqlConnection(connectionString)){
           
           var sql= @"INSERT INTO Inmuebles(direccion, uso, tipo, cantAmbientes, latitud, longitud, precio, visible, idPropietario,estado)
-           VALUES(@direccion, @uso, @tipo, @cantAmbientes,@precio, @latitud, @longitud, @visible, @idPropietario, @estado);
+           VALUES(@direccion, @uso, @tipo, @cantAmbientes, @latitud, @longitud, @precio, @visible, @idPropietario, @estado);
            SELECT LAST_INSERT_ID();";
   
           using (MySqlCommand cmd= new MySqlCommand(sql,conn))
@@ -99,7 +99,7 @@ public class RepositorioInmueble{
     public int Modificar(Inmueble i){
       var res=-1;
       using(MySqlConnection conn= new MySqlConnection(connectionString)){
-         var sql= @"UPDATE inmuebles SET direccion=@direccion, uso=@uso, tipo= @tipo, cantAmbientes=@cantAmbientes, latitud=@latitud, longitud=@longitud, visible=@visible, idPropietario=@idPropietario WHERE idInmueble=@idInmueble";
+         var sql= @"UPDATE inmuebles SET direccion=@direccion, uso=@uso, tipo=@tipo, cantAmbientes=@cantAmbientes, latitud=@latitud, longitud=@longitud, visible=@visible, idPropietario=@idPropietario, precio=@precio WHERE idInmueble=@idInmueble";
           using (MySqlCommand cmd= new MySqlCommand(sql,conn))
           {
             cmd.Parameters.AddWithValue("@direccion",i.Direccion);

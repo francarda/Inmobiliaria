@@ -1,5 +1,6 @@
 using MySql.Data.MySqlClient;
 namespace Inmobiliaria;
+using Inmobiliaria.Models;
 public class RepositorioPropietario
 {
     protected readonly string connectionString;
@@ -106,6 +107,34 @@ public class RepositorioPropietario
           var sql= @"SELECT * FROM propietarios WHERE idPropietario=@id";
           using (MySqlCommand cmd= new MySqlCommand(sql,conn)){
             cmd.Parameters.AddWithValue("@id",id);
+            conn.Open();
+            using(MySqlDataReader reader= cmd.ExecuteReader()){
+              if(reader.Read()){
+                p= new Propietario{
+                  IdPropietario= reader.GetInt32("idPropietario"),
+                  Nombre= reader.GetString("nombre"),
+                  Apellido= reader.GetString("apellido"),
+                  Dni= reader.GetString("dni"),
+                  Telefono= reader.GetString("telefono"),
+                  Direccion= reader.GetString("direccion"),
+                  Mail= reader.GetString("mail"),
+                  Ciudad= reader.GetString("ciudad")
+                };
+              }
+            }
+            conn.Close();
+          }
+      }
+      return p;
+    }
+
+    public Propietario BuscarPorDni(int dni){
+      Propietario p=null;
+      var res=-1;
+      using(MySqlConnection conn= new MySqlConnection(connectionString)){
+          var sql= @"SELECT * FROM propietarios WHERE dni=@dni and estado=1";
+          using (MySqlCommand cmd= new MySqlCommand(sql,conn)){
+            cmd.Parameters.AddWithValue("@id",dni);
             conn.Open();
             using(MySqlDataReader reader= cmd.ExecuteReader()){
               if(reader.Read()){

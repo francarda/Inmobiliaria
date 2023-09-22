@@ -1,10 +1,12 @@
 using Inmobiliaria;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Net.Http.Headers;
+namespace Inmobiliaria.Models;
+using System.ComponentModel.DataAnnotations;
 
 public class Propietario{
     //atributos
-    private string nombre, apellido,dni, telefono,direccion, mail, ciudad;
+    /*private string nombre, apellido,dni, telefono,direccion, mail, ciudad;
     private int idPropietario;
     
     //constructores
@@ -19,16 +21,19 @@ public class Propietario{
         this.ciudad = ciudad;
         this.idPropietario = idPropietario;
 
-    }
+    }*/
     public Propietario(){}
     //getters and setter
+    [Key]
+    [Display(Name="Código")]
+    public int IdPropietario{get;set;}
     public string Nombre{get; set;}="";
     public string Apellido{get; set;}="";
     public string Dni{get; set;}="";
     public string Direccion{get; set;}="";
     public string Mail{get; set;}="";
     public string Ciudad{get; set;}="";
-    public int IdPropietario{get;set;}
+    
     public string Telefono{get; set;}="";
     public bool Estado{get;set;}=true;
     public override string ToString()

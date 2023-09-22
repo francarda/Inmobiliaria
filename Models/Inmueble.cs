@@ -14,7 +14,7 @@ public string Uso{get;set;}="";
 public string Tipo{get;set;}="";
 [Required]
 [Display(Name ="Cantidad de ambientes")]
-public int CantAmbientes{get;set;}
+public int CantAmbientes{get;set;}=0;
 public string Latitud{get;set;}="";
 public string Longitud{get;set;}="";
 public float Precio{get;set;}

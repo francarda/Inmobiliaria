@@ -75,6 +75,8 @@ namespace Inmobiliaria.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Inmueble inmueble)
         {
+           
+            
             try
             {
                 repo.Modificar(inmueble);
