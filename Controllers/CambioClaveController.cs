@@ -43,9 +43,23 @@ namespace Inmobiliaria.Controllers
 			return View("Editartodo", cc);
 		}*/
 		
-		[Authorize(Policy = "Administrador")]
+		//[Authorize(Policy = "Administrador")]
 		public ActionResult CambiarTodo(int id)
-		{
+		{	
+			if (!User.IsInRole("Administrador"))//no soy admin
+				{
+					
+					var usuarioActual = repositorio.ObtenerPorEmail(User.Identity.Name);
+					Console.WriteLine(usuarioActual.Id);
+					
+					if (usuarioActual.Id != id){
+						
+						TempData["error"] = "No puede actualizar otro usuario";
+						return RedirectToAction(nameof(Index), "Home");
+					}
+					
+					
+				}
 			
 			ViewData["Title"] = "Editar usuario";
 			var u = repositorio.ObtenerPorId(id);
@@ -65,6 +79,7 @@ namespace Inmobiliaria.Controllers
 		//post
 		[HttpGet] // Agrega este atributo para permitir solicitudes HTTP GET
 		[Authorize]
+		
 		public ActionResult Perfil()
 		{
 			
@@ -86,7 +101,25 @@ namespace Inmobiliaria.Controllers
 			return View("Editartodo",cm);
 			//return View("Editartodo", cc);
 		}
+
+
 		public ActionResult EditarNombres(CambioClave cc){
+			
+			if (!User.IsInRole("Administrador"))//no soy admin
+				{
+					
+					var usuarioActual = repositorio.ObtenerPorEmail(User.Identity.Name);
+					Console.WriteLine(usuarioActual.Id);
+					Console.WriteLine(cc.Id);
+					if (usuarioActual.Id != cc.Id){
+						
+						TempData["error"] = "No puede actualizar otro usuario";
+						return RedirectToAction(nameof(Index), "Home");
+					}
+					
+					
+				}
+
 			int res= repositorio.ModificarNombres(cc.Nombre,cc.Apellido,cc.Id, cc.Email);
 			//ViewData["mensaje"] ="Nombres guardados";
 			if(res>0){
@@ -96,9 +129,25 @@ namespace Inmobiliaria.Controllers
 			}
 			return RedirectToAction("CambiarTodo", "CambioClave", new { id = cc.Id });
 		}
+
+
 		public ActionResult CambioClave(CambioClave cc)
 		{
 
+			if (!User.IsInRole("Administrador"))//no soy admin
+				{
+					
+					var usuarioActual = repositorio.ObtenerPorEmail(User.Identity.Name);
+					Console.WriteLine(usuarioActual.Id);
+					Console.WriteLine(cc.Id);
+					if (usuarioActual.Id != cc.Id){
+						
+						TempData["error"] = "No puede actualizar otro usuario";
+						return RedirectToAction(nameof(Index), "Home");
+					}
+					
+					
+				}
 			if(cc.nuevaClave == cc.confirmarClave){
 				string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
 								password: cc.nuevaClave,
@@ -120,7 +169,20 @@ namespace Inmobiliaria.Controllers
 		[HttpPost]
 
 		public ActionResult CambiarImagen(CambioClave cc){
-			
+			if (!User.IsInRole("Administrador"))//no soy admin
+				{
+					
+					var usuarioActual = repositorio.ObtenerPorEmail(User.Identity.Name);
+					Console.WriteLine(usuarioActual.Id);
+					Console.WriteLine(cc.Id);
+					if (usuarioActual.Id != cc.Id){
+						
+						TempData["error"] = "No puede actualizar otro usuario";
+						return RedirectToAction(nameof(Index), "Home");
+					}
+					
+					
+				}
 		string res= repositorio.FotoDireccion(cc.Id);
 
 		if (cc.AvatarFile != null && cc.Id > 0)
