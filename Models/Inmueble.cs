@@ -17,10 +17,10 @@ public string Tipo{get;set;}="";
 public int CantAmbientes{get;set;}=0;
 public string Latitud{get;set;}="";
 public string Longitud{get;set;}="";
-public float Precio{get;set;}
+public float Precio{get;set;}=0;
 public bool Visible{get;set;}=true;
 [Display(Name ="Dueño")]
-public int IdPropietario{get;set;}
+public int IdPropietario{get;set;}=1;
 [ForeignKey(nameof(IdPropietario))]
 public Propietario? Duenio{get;set;}
 public string toString(){

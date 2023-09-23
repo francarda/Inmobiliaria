@@ -46,6 +46,17 @@ namespace Inmobiliaria.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Inmueble inmueble)
         {
+            if (!ModelState.IsValid){
+            RepositorioPropietario propi= new RepositorioPropietario();
+            List<Propietario> lista;
+           
+            lista= propi.ObtenerPropietarios();
+
+            ViewData["lista"]= lista;
+            return View();
+				ViewBag.Roles = Usuario.ObtenerRoles();
+				return View();
+			}
             try
             {
                 
@@ -54,7 +65,13 @@ namespace Inmobiliaria.Controllers
             }
             catch
             {
-                return View();
+                 RepositorioPropietario propi= new RepositorioPropietario();
+            List<Propietario> lista;
+            lista= propi.ObtenerPropietarios();
+
+            ViewData["lista"]= lista;
+            return View();
+                
             }
         }
 

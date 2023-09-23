@@ -64,8 +64,11 @@ namespace Inmobiliaria.Controllers
 		[Authorize(Policy = "Administrador")]
 		public ActionResult Create(Usuario u)
 		{
-			if (!ModelState.IsValid)
+			if (!ModelState.IsValid){
+
+				ViewBag.Roles = Usuario.ObtenerRoles();
 				return View();
+			}
 			try
 			{
 				string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
@@ -105,6 +108,8 @@ namespace Inmobiliaria.Controllers
 				ViewBag.Roles = Usuario.ObtenerRoles();
 				return View();
 			}
+			ViewBag.Roles = Usuario.ObtenerRoles();
+				return View();
 		}
 
 		// GET: Usuarios/Edit/5

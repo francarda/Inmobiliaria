@@ -18,27 +18,18 @@
                 <input asp-for="IdContrato" class="form-control" value="0"/>
                 <span asp-validation-for="IdContrato" class="text-danger"></span>
             </div>
-            <div class="form-group">
+           
+             <div class="form-group">
                 <label asp-for="IdInquilino" class="control-label">Inquilino</label>
-                <!--input asp-for="IdInquilino"class="form-control">
-                </div>
-                <div>
-            <div class="form-group">
-                <label asp-for="IdInmueble" class="control-label">Inmueble</label>
-                <input asp-for="IdInmueble"class="form-control">
-                </div-->
-                <input asp-for="IdInquilino"class="form-control" list="datal">
-                
+                <input asp-for="IdInquilino"class="form-control my-2" list="datal" placeholder="Inquilino..." >
                 <datalist id="datal">   
-                    @foreach (var item in ViewData["Inquilinos"] as List<Inquilino>){
+                    @foreach (var item in ViewData["Inquilinos"] as List<Inquilino>) {
                     
                     <option class="list-group-item" value="@item.IdInquilino"> @item.toString()</option>
                 }
-        
-                </datalist>
+            </datalist>
                 <span asp-validation-for="IdInquilino" class="text-danger"></span>
             </div>
-            
             <div class="form-group">
                 <label asp-for="IdInmueble" class="control-label">Inmueble</label>
                 <input asp-for="IdInmueble"class="form-control" list="data2" >

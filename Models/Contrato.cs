@@ -23,10 +23,10 @@ public class Contrato{
     public DateOnly Hasta{ get; set;}
     
     [Display(Name="Inquilino")]
-    public Inquilino inquilino{get; set;}=null;
+    public Inquilino? inquilino{get; set;}=null;
    
     [Display(Name="Inmueble")]
-    public Inmueble inmueble{get; set;}=null;
+    public Inmueble? inmueble{get; set;}=null;
     public bool Activo{get;set;}=true;
     public string toString()
     {

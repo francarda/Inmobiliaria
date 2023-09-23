@@ -54,6 +54,8 @@ namespace Inmobiliaria.Controllers
             }
             catch
             {
+                List<Contrato> contratos=repoContrato.ObtenerContratos();
+            ViewData["contratos"]= contratos;
                 return View();
             }
         }
@@ -80,6 +82,8 @@ namespace Inmobiliaria.Controllers
             }
             catch
             {
+            List<Contrato> contratos=repoContrato.ObtenerContratos();
+            ViewData["contratos"]= contratos;
                 return View();
             }
         }

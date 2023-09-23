@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-09-2023 a las 13:18:49
+-- Tiempo de generación: 23-09-2023 a las 03:36:56
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -51,7 +51,10 @@ INSERT INTO `contratos` (`idContrato`, `idInquilino`, `idInmueble`, `desde`, `ha
 (10, 2, 13, '2023-09-08', '2023-09-21', '232321', 1),
 (11, 2, 9, '2023-09-05', '2023-09-29', '1235464', 1),
 (12, 2, 13, '2023-10-10', '2023-10-28', '1500', 1),
-(13, 2, 5, '2023-09-13', '2023-09-20', '155500', 1);
+(13, 2, 5, '2023-09-13', '2023-09-20', '155500', 1),
+(15, 1, 36, '2023-09-08', '2023-09-29', '1321321', 1),
+(17, 1, 36, '0001-01-01', '0001-01-01', '1235464', 1),
+(18, 3, 28, '2023-09-18', '2023-09-11', '1500', 1);
 
 -- --------------------------------------------------------
 
@@ -84,10 +87,10 @@ INSERT INTO `inmuebles` (`idInmueble`, `direccion`, `uso`, `tipo`, `cantAmbiente
 (5, 'avenida1', 'familiar', 'casa', 4, '1234', '12354', 1, '123', 2, 1),
 (6, 'avenida1', 'familiar', 'casa', 12, '100000000', '12368', 1, '1235', 5, 1),
 (7, 'avenida1', 'familiar', 'casa', 12, '100000000', '12368', 1, '1235', 5, 1),
-(8, 'av mitre 1555', 'comercial', 'deposito', 8, '266565', '5555', 0, '555', 2, 1),
+(8, 'av mitre 1555', 'comercial', 'deposito', 8, '266565', '5555', 1, '555', 2, 1),
 (9, 'av mitre 1555', 'comercial', 'deposito', 8, '266565', '5555', 0, '555', 2, 1),
 (10, 'avenida1', 'familiar', 'casa', 12, '100000000', '12368', 1, '1235', 5, 1),
-(11, 'avenida1', 'familiar', 'casa', 12, '100000000', '12368', 1, '1235', 5, 1),
+(11, 'avenida1', 'familiar', 'casa', 13, '100000000', '12368', 1, '1235', 5, 1),
 (12, 'av mitre 1555', 'comercial', 'deposito', 8, '266565', '5555', 0, '555', 2, 1),
 (13, 'av mitre 1555', 'comercial', 'deposito', 8, '266565', '5555', 0, '555', 2, 1),
 (14, 'av mitre 1555', 'comercial', 'deposito', 8, '266565', '5555', 0, '555', 2, 1),
@@ -98,7 +101,14 @@ INSERT INTO `inmuebles` (`idInmueble`, `direccion`, `uso`, `tipo`, `cantAmbiente
 (23, 'las golondrinas', 'personal', 'casa', 4, '8000000', '12368', 0, '3215465', 2, 1),
 (25, 'Las aguilas 12', 'familiar', 'casa', 4, '100000000', '321321', 0, '1235', 5, 0),
 (26, 'Las aguilas 12', 'comercial', 'casa', 4, '100000000', '321321', 0, '1235', 4, 1),
-(27, 'Las aguilas 12', 'familiar', 'deposito', 4, '200000', '321321', 1, '1235', 11, 1);
+(27, 'Las aguilas 12', 'familiar', 'deposito', 4, '200000', '16', 1, '1235', 2, 1),
+(28, 'Las aguilas 12', 'comercial', 'casa', 2, '200000', '1235', 0, '1235', 1, 1),
+(29, 'merlo', 'merlo1', 'merlo2', 4, '6', '0', 1, 'MERLO4', 2, 1),
+(31, 'editado', 'editado uso', 'editado', 5, '5 este', '7', 1, '6 norte', 5, 1),
+(32, 'merlo', 'comercial', 'depostio', 1, '2 este', '4', 0, '3 norte', 5, 1),
+(33, 'casa', 'comercial', 'residencia', 2, '3 este', '5', 1, '4 norte', 2, 1),
+(36, 'hola', 'hola', 'hoal', 2, 'ESTE', '123', 0, 'NOER', 1, 1),
+(37, 'SILLA', 'ASD', 'ASDF', 1, '1235', '8000000', 0, '12', 11, 1);
 
 -- --------------------------------------------------------
 
@@ -149,10 +159,11 @@ CREATE TABLE `pagos` (
 --
 
 INSERT INTO `pagos` (`idPago`, `IdContrato`, `numeroDePago`, `fechaDePago`, `estado`, `monto`) VALUES
-(1, 10, 3, '2023-09-01', 1, '20005'),
+(1, 7, 4, '2023-09-01', 1, '20005'),
 (3, 10, 1, '2023-01-01', 1, '1500'),
 (4, 7, 1, '2023-09-05', 1, '155500'),
-(5, 10, 1, '2023-09-05', 0, '155500');
+(5, 10, 1, '2023-09-05', 0, '155500'),
+(9, 15, 23, '2023-09-22', 1, '155500');
 
 -- --------------------------------------------------------
 
@@ -177,12 +188,16 @@ CREATE TABLE `propietarios` (
 --
 
 INSERT INTO `propietarios` (`idPropietario`, `dni`, `apellido`, `nombre`, `telefono`, `direccion`, `ciudad`, `mail`, `estado`) VALUES
-(1, '33429037', 'Cardarelli', 'francisco', '2664167311', 'las golondrinas', 'PIEDRA BLANCA', 'franciscocardarelli@hotmail.com', 1),
+(1, '334290637', 'Cardarelli', 'francisco', 'PIEDRA BLANCA', 'las golondrinas', 'PIEDRA BLANCA', 'franciscocardarelli@hotmail.com', 1),
 (2, '232658459', 'Scar', 'Lucia', '2664167312', '9 de julio 1500', 'Merlo', 'lucia@gmail.com', 1),
 (3, '56088565', 'Franccesca', 'Emma', '2664167355', 'Av norte 1556', 'Merlo', 'emma@franccesca.com', 1),
 (4, '11989456', 'Cardarelli', 'Jorge', '2657547060', '9 de julio 1564', 'Villa Mercedes', 'jorgecardarelli@hotmail.com', 1),
 (5, '16568456', 'Said', 'Liliana', '2664758486', 'Las aguilas 12', 'Carpinteria', 'liliana@gmail.com', 1),
-(11, '1234', 'luza', 'mariano', '2224', 'avenida1', 'merlo', 'mariano@hotmail.com', 1);
+(11, '1234', 'luza', 'mariano', '2224', 'avenida1', 'merlo', 'mariano@hotmail.com', 1),
+(12, 'asdfasdf', 'Franccesca', 'Francisco', 'NFR', 'NFR', 'NFR', 'nfra', 1),
+(13, 'fran', 'Franccesca', 'Francisco', '54654', 'frn', 'guayaquil', 'fnra', 0),
+(14, '123', 'Cardarelli', 'Francisco', '123', '13', '13', '123', 1),
+(15, 'asdfasdf', 'aa', 'aa', '', 'aa', 'a', 'aa', 0);
 
 -- --------------------------------------------------------
 
@@ -207,9 +222,13 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `avatar`, `email`, `clave`, `rol`) VALUES
 (1, 'Carlitos', 'carlos', '', 'carlos@carlos', '123', 2),
 (6, 'Juan', 'Juan', '/Uploads\\avatar_6.jpg', 'juan@juan', 'qYM7JOKErgp/dPvpAnIoj37QqFlc3Mh8h9tlz4kuRY0=', 3),
-(13, 'lucia', 'sca', '/Uploads\\avatar_13.jpg', 'luci@luci', 'TlSu1CQvtaIAAswpBfoG3HqSpcuDDAgXuyn3sXc40s4=', 2),
-(14, 'empla', 'Carmelio', '/Uploads\\avatar_14.png', 'emp@emp', 'qYM7JOKErgp/dPvpAnIoj37QqFlc3Mh8h9tlz4kuRY0=', 3),
-(15, 'pepes', 'pepe', '/Uploads\\avatar_15.jpg', 'pepe@pepe', 'qYM7JOKErgp/dPvpAnIoj37QqFlc3Mh8h9tlz4kuRY0=', 3);
+(13, 'lucia', 'scaa', '/Uploads\\avatar_13.jpg', 'luci@luci', 'qYM7JOKErgp/dPvpAnIoj37QqFlc3Mh8h9tlz4kuRY0=', 2),
+(14, 'empleadito', 'Carmeliaaa', '/Uploads\\avatar_14.png', 'emp@emp', 'qYM7JOKErgp/dPvpAnIoj37QqFlc3Mh8h9tlz4kuRY0=', 3),
+(15, 'pepes', 'pepe', '/Uploads\\avatar_15.jpg', 'pepe@pepe', 'qYM7JOKErgp/dPvpAnIoj37QqFlc3Mh8h9tlz4kuRY0=', 3),
+(20, 'Francisco', 'cardarelli', '/Uploads\\avatar_20.jpg', 'franciscocardarelli@hotmail.com', 'qYM7JOKErgp/dPvpAnIoj37QqFlc3Mh8h9tlz4kuRY0=', 1),
+(21, 'Liliana', 'Said', NULL, 'li@li', 'qYM7JOKErgp/dPvpAnIoj37QqFlc3Mh8h9tlz4kuRY0=', 1),
+(23, 'emma', 'emma', NULL, 'emma@emma', 'qYM7JOKErgp/dPvpAnIoj37QqFlc3Mh8h9tlz4kuRY0=', 1),
+(24, 'sinfoto', 'sinfoto', '/Uploads\\avatar_24.jpg', 'sinfoto@sin', 'qYM7JOKErgp/dPvpAnIoj37QqFlc3Mh8h9tlz4kuRY0=', 1);
 
 --
 -- Índices para tablas volcadas
@@ -263,13 +282,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `contratos`
 --
 ALTER TABLE `contratos`
-  MODIFY `idContrato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idContrato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `inmuebles`
 --
 ALTER TABLE `inmuebles`
-  MODIFY `idInmueble` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `idInmueble` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `inquilinos`
@@ -281,19 +300,19 @@ ALTER TABLE `inquilinos`
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `propietarios`
 --
 ALTER TABLE `propietarios`
-  MODIFY `idPropietario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idPropietario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Restricciones para tablas volcadas

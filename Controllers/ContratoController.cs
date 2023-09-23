@@ -44,6 +44,9 @@ namespace Inmobiliaria.Controllers
         
         public ActionResult Create(Contrato contrato)
         {
+            Console.WriteLine("inquilino: " + contrato.IdInquilino);
+            Console.WriteLine("propietario: " + contrato.IdInmueble);
+
              
             try
             {
@@ -53,6 +56,11 @@ namespace Inmobiliaria.Controllers
             }
             catch
             {
+                 List<Inquilino> listaInquilinos= repoInquilino.ObtenerInquilinos();
+            List<Inmueble> listaInmuebles= repoInmueble.ObtenerInmuebles();
+            ViewData["Inquilinos"]= listaInquilinos;
+            ViewData["Inmuebles"]= listaInmuebles;
+            return View();
                 return View();
             }
         }

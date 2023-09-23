@@ -58,13 +58,19 @@
                 </label>
             </div>
             <div class="form-group">
-                <input asp-for="IdPropietario"class="form-control m-4" list="datal" placeholder="Propietario..." >
+                <input asp-for="IdPropietario"class="form-control m-4" list="datal" placeholder="Propietario..." value="1">
                   <datalist id="datal">   
-                    @foreach (var item in ViewData["lista"] as List<Propietario>) {
-                    
-                    <option class="list-group-item" value="@item.IdPropietario"> @item.Nombre @item.Apellido</option>
+                     @{
+            var propietarios = ViewData["lista"] as List<Propietario>;
+            if (propietarios != null && propietarios.Count > 0)
+            {
+                <option class="list-group-item" value="@propietarios[0].IdPropietario" selected> @propietarios[0].Nombre @propietarios[0].Apellido</option>
+                for (var i = 1; i < propietarios.Count; i++)
+                {
+                    <option class="list-group-item" value="@propietarios[i].IdPropietario"> @propietarios[i].Nombre @propietarios[i].Apellido</option>
                 }
-        
+            }
+        }
                 </datalist>
                 <span asp-validation-for="IdPropietario" class="text-danger"></span>
             </div>
